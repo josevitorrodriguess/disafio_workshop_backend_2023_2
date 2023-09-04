@@ -6,7 +6,11 @@
 
 ## Tecnologias Ultilizadas
 
+<<<<<<< HEAD
  -python
+=======
+ -pyhton
+>>>>>>> 1e892abc2c61e73b0153bb86f7ac44f59f012749
  -postgresql
  -djangorestframwork
 
