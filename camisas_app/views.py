@@ -1,31 +1,16 @@
-from django.db import models
+from rest_framework import viewsets
+from rest_framework.pagination import LimitOffsetPagination
+from .models import Camisa, Detalhes
+from .serializer import CamisaSerializer, DetalhesSerializer
 
-# Define o modelo 'Camisa' que herda da classe 'models.Model'
-class Camisa(models.Model):
-    # Define um campo de texto para armazenar o nome do time
-    time = models.CharField(max_length=20)
-    
-    # Define um campo de texto para armazenar o tipo de camisa (Goleiro, Treino, Jogo)
-    tipo = models.CharField(max_length=20)
+# Viewset para o modelo Camisa
+class CamisaViewset(viewsets.ModelViewSet):
+    queryset = Camisa.objects.all()
+    serializer_class = CamisaSerializer
+    pagination_class = LimitOffsetPagination # Define a paginação usando LimitOffsetPagination
 
-    # Define um método '__str__' que retorna uma representação de string legível do objeto
-    def __str__(self):
-        return f"Time: {self.time} Tipo(Goleiro, Treino, Jogo): {self.tipo}"
-
-# Define o modelo 'Detalhes' que herda da classe 'models.Model'
-class Detalhes(models.Model):
-    # Define um campo de chave estrangeira para relacionar um objeto 'Detalhes' com um objeto 'Camisa'
-    camisa = models.ForeignKey(Camisa, related_name='tipo_camisa', on_delete=models.CASCADE, null=True, blank=True)
-    
-    # Define um campo de texto para armazenar o nome
-    nome = models.CharField(max_length=20)
-    
-    # Define um campo de texto para armazenar o tamanho
-    tamanho = models.CharField(max_length=20)
-    
-    # Define um campo de texto para armazenar o número
-    numero = models.CharField(max_length=5)
-
-    # Define um método '__str__' que retorna uma representação de string legível do objeto
-    def __str__(self):
-        return f"Camisa : {self.camisa} Nome: {self.nome} Tamanho: {self.tamanho}  Número: {self.numero}"
+# Viewset para o modelo Detalhes
+class DetalhesViewset(viewsets.ModelViewSet):
+    queryset = Detalhes.objects.all()
+    serializer_class = DetalhesSerializer
+    pagination_class = LimitOffsetPagination  # Define a paginação usando LimitOffsetPagination
